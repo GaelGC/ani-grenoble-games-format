@@ -1,0 +1,15 @@
+{
+  "name": "ani-grenoble-games-format",
+  "version": "0.1.0",
+  "description": "Data structures, parsers and serializers for the supported games.",
+  "scripts": {
+  },
+  "keywords": [
+    "Ani-Grenoble",
+    "Ani-Games",
+    "anime",
+    "games"
+  ],
+  "author": "Gael GC",
+  "license": "ISC"
+}
