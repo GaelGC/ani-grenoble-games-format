@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Data structures, parsers and serializers for the supported games.",
   "scripts": {
+    "generate_schema": "typescript-json-schema src/QuestionTypes.ts QuestionSet -o dist/schema.json"
   },
   "keywords": [
     "Ani-Grenoble",
@@ -11,5 +12,11 @@
     "games"
   ],
   "author": "Gael GC",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript-json-schema": "^0.50.1"
+  },
+  "dependencies": {
+    "ajv": "^8.5.0"
+  }
 }
