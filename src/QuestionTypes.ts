@@ -1,21 +1,24 @@
 import Ajv from "ajv";
-import Result = require("ts-result");
+import { Result, Ok, Err } from "ts-results";
 import fs = require('fs');
 
 export interface QuestionBase<TypeName> {
     type: TypeName;
     name: string;
     points: number;
-    hints: string[];
 };
 
-export interface BlindTestQuestion extends QuestionBase<"BlindTestQuestion"> {
+export interface ClearAnswerQuestion {
+    answer: string;
+    hints: string[];
+}
+
+export interface BlindTestQuestion extends QuestionBase<"BlindTestQuestion">, ClearAnswerQuestion {
     path: string;
 };
 
-export interface TextQuestion extends QuestionBase<"TextQuestion"> {
+export interface TextQuestion extends QuestionBase<"TextQuestion">, ClearAnswerQuestion {
     question: string;
-    answer: string;
 };
 
 export type Question = BlindTestQuestion | TextQuestion;
@@ -24,19 +27,19 @@ export interface QuestionSet {
     questions: Question[];
 };
 
-const schema: string = fs.readFileSync(`${__dirname}/schema.json`).toString();
+const schema = JSON.parse(fs.readFileSync(`${__dirname}/schema.json`).toString());
 
 export function parse(json: string): Result<QuestionSet, Error> {
     const ajv = new Ajv();
     var val: unknown;
     try {
         val = JSON.parse(json);
+        if (ajv.validate(schema, val)) {
+            return Ok(val as QuestionSet);
+        } else {
+            return Err(new Error(ajv.errors!.join('\n')));
+        }
     } catch (e) {
-        return Result.err(e);
-    }
-    if (ajv.validate(schema, val)) {
-        return Result.ok(val as QuestionSet);
-    } else {
-        return Result.err(new Error(ajv.errors!.join('\n')));
+        return Err(e);
     }
 }
