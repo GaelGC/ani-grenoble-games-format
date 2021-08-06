@@ -27,7 +27,7 @@ export interface QuestionSet {
     questions: Question[];
 };
 
-const schema = JSON.parse(fs.readFileSync(`${__dirname}/schema.json`).toString());
+const schema = JSON.parse(fs.readFileSync(`${__dirname}/question_schema.json`).toString());
 
 export function parse(json: string): Result<QuestionSet, Error> {
     const ajv = new Ajv();
