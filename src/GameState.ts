@@ -11,7 +11,13 @@ export interface GameState {
     players: Player[];
 };
 
+export interface QuestionWinners {
+    players: string[];
+    points: number;
+}
+
 const playerSchema = JSON.parse(fs.readFileSync(`${__dirname}/player_schema.json`).toString());
+const questionWinnersSchema = JSON.parse(fs.readFileSync(`${__dirname}/question_winners_schema.json`).toString());
 const gameStateSchema = JSON.parse(fs.readFileSync(`${__dirname}/game_state_schema.json`).toString());
 
 function parse<T>(json: string, schema: any): Result<T, Error> {
@@ -35,4 +41,8 @@ export function parse_player(json: string): Result<Player, Error> {
 
 export function parse_game_state(json: string): Result<GameState, Error> {
     return parse(json, gameStateSchema);
+}
+
+export function parse_question_winners(json: string): Result<QuestionWinners, Error> {
+    return parse(json, questionWinnersSchema);
 }
