@@ -17,11 +17,16 @@ export interface BlindTestQuestion extends QuestionBase<"BlindTestQuestion">, Cl
     path: string;
 };
 
+export interface QuoteQuestion extends QuestionBase<"QuoteQuestion">, ClearAnswerQuestion {
+    audio?: string;
+    text: string;
+};
+
 export interface TextQuestion extends QuestionBase<"TextQuestion">, ClearAnswerQuestion {
     question: string;
 };
 
-export type Question = BlindTestQuestion | TextQuestion;
+export type Question = BlindTestQuestion | TextQuestion | QuoteQuestion;
 
 export interface QuestionSet {
     questions: Question[];

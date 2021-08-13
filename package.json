@@ -1,6 +1,6 @@
 {
   "name": "ani-grenoble-games-format",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Data structures, parsers and serializers for the supported games.",
   "scripts": {
     "generate_question_schema": "typescript-json-schema --required src/QuestionTypes.ts QuestionSet -o dist/question_schema.json",
