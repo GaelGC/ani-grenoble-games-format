@@ -26,7 +26,10 @@ export interface TextQuestion extends QuestionBase<"TextQuestion">, ClearAnswerQ
     question: string;
 };
 
-export type Question = BlindTestQuestion | TextQuestion | QuoteQuestion;
+export interface HangedManQuestion extends QuestionBase<"HangedManQuestion">, ClearAnswerQuestion {
+};
+
+export type Question = BlindTestQuestion | TextQuestion | QuoteQuestion | HangedManQuestion;
 
 export interface QuestionSet {
     questions: Question[];
