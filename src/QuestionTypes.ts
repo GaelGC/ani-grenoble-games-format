@@ -30,7 +30,12 @@ export interface TextQuestion extends QuestionBase<'TextQuestion'>, ClearAnswerQ
 export interface HangedManQuestion extends QuestionBase<'HangedManQuestion'>, ClearAnswerQuestion {
 };
 
-export type Question = BlindTestQuestion | TextQuestion | QuoteQuestion | HangedManQuestion;
+export interface ImagesQuestion extends QuestionBase<'ImagesQuestion'>, ClearAnswerQuestion {
+    images: string[];
+};
+
+export type Question = BlindTestQuestion | TextQuestion | QuoteQuestion
+                     | HangedManQuestion | ImagesQuestion;
 
 export interface QuestionSet {
     questions: Question[];
