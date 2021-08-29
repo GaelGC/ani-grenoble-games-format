@@ -15,6 +15,7 @@ export interface ClearAnswerQuestion {
 
 export interface BlindTestQuestion extends QuestionBase<'BlindTestQuestion'>, ClearAnswerQuestion {
     path: string;
+    answerImage: string;
 };
 
 export interface QuoteQuestion extends QuestionBase<'QuoteQuestion'>, ClearAnswerQuestion {
