@@ -1,5 +1,5 @@
-import Ajv from "ajv";
-import { Result, Ok, Err } from "ts-results";
+import Ajv from 'ajv'
+import { Result, Ok, Err } from 'ts-results'
 import fs = require('fs');
 
 export interface Player {
@@ -16,33 +16,33 @@ export interface QuestionWinners {
     points: number;
 }
 
-const playerSchema = JSON.parse(fs.readFileSync(`${__dirname}/player_schema.json`).toString());
-const questionWinnersSchema = JSON.parse(fs.readFileSync(`${__dirname}/question_winners_schema.json`).toString());
-const gameStateSchema = JSON.parse(fs.readFileSync(`${__dirname}/game_state_schema.json`).toString());
+const playerSchema = JSON.parse(fs.readFileSync(`${__dirname}/player_schema.json`).toString())
+const questionWinnersSchema = JSON.parse(fs.readFileSync(`${__dirname}/question_winners_schema.json`).toString())
+const gameStateSchema = JSON.parse(fs.readFileSync(`${__dirname}/game_state_schema.json`).toString())
 
-function parse<T>(json: string, schema: any): Result<T, Error> {
-    const ajv = new Ajv();
-    var val: unknown;
+function parse<T> (json: string, schema: any): Result<T, Error> {
+    const ajv = new Ajv()
+    let val: unknown
     try {
-        val = JSON.parse(json);
+        val = JSON.parse(json)
         if (ajv.validate(schema, val)) {
-            return Ok(val as T);
+            return Ok(val as T)
         } else {
-            return Err(new Error(ajv.errors!.join('\n')));
+            return Err(new Error(ajv.errors!.join('\n')))
         }
     } catch (e) {
-        return Err(e);
+        return Err(e)
     }
 }
 
-export function parse_player(json: string): Result<Player, Error> {
-    return parse(json, playerSchema);
+export function parsePlayer (json: string): Result<Player, Error> {
+    return parse(json, playerSchema)
 }
 
-export function parse_game_state(json: string): Result<GameState, Error> {
-    return parse(json, gameStateSchema);
+export function parseGameState (json: string): Result<GameState, Error> {
+    return parse(json, gameStateSchema)
 }
 
-export function parse_question_winners(json: string): Result<QuestionWinners, Error> {
-    return parse(json, questionWinnersSchema);
+export function parseQuestionWinners (json: string): Result<QuestionWinners, Error> {
+    return parse(json, questionWinnersSchema)
 }
