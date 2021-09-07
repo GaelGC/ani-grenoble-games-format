@@ -5,6 +5,7 @@ import fs = require('fs');
 export interface Player {
     name: string;
     score: number;
+    color: string;
 };
 
 export interface GameState {
