@@ -1,12 +1,13 @@
 {
   "name": "@gaelgc/ani-grenoble-games-format",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "description": "Data structures, parsers and serializers for the supported games.",
   "scripts": {
     "generate_question_schema": "typescript-json-schema --required src/QuestionTypes.ts QuestionSet -o dist/question_schema.json",
     "generate_player_schema": "typescript-json-schema --required src/GameState.ts Player -o dist/player_schema.json",
     "generate_game_state_schema": "typescript-json-schema --required src/GameState.ts GameState -o dist/game_state_schema.json",
     "generate_question_winners_schema": "typescript-json-schema --required src/GameState.ts QuestionWinners -o dist/question_winners_schema.json",
+    "generate_goose_board_schema": "typescript-json-schema --required src/GooseBoard.ts GooseBoard -o dist/goose_board_schema.json",
     "compile": "tsc --build",
     "test": "mocha -r ts-node/register tests/*.ts"
   },
