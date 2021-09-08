@@ -6,6 +6,7 @@ export interface QuestionBase<TypeName> {
     type: TypeName;
     name: string;
     points: number;
+    tags?: string[];
 };
 
 export interface ClearAnswerQuestion {
