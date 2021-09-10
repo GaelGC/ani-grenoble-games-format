@@ -2,8 +2,14 @@ import Ajv from 'ajv'
 import { Result, Ok, Err } from 'ts-results'
 import fs = require('fs');
 
+export type Coordinates = {
+    x: number;
+    y: number;
+}
+
 export interface SlotBase<TypeName> {
     type: TypeName;
+    coordinates: Coordinates;
 }
 
 export interface TagSelector extends SlotBase<'TagSelector'> {
@@ -18,6 +24,7 @@ export type Slot = TagSelector | TypeSelector;
 
 export interface GooseBoard {
     slots: Slot[];
+    winCoordinates: Coordinates;
 };
 
 const schema = JSON.parse(fs.readFileSync(`${__dirname}/goose_board_schema.json`).toString())
