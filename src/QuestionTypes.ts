@@ -31,12 +31,16 @@ export interface TextQuestion extends QuestionBase<'TextQuestion'>, ClearAnswerQ
 export interface HangedManQuestion extends QuestionBase<'HangedManQuestion'>, ClearAnswerQuestion {
 };
 
+export interface FindTheWordQuestion extends QuestionBase<'FindTheWordQuestion'>, ClearAnswerQuestion {
+    nbTries: number;
+};
+
 export interface ImagesQuestion extends QuestionBase<'ImagesQuestion'>, ClearAnswerQuestion {
     images: string[];
 };
 
 export type Question = BlindTestQuestion | TextQuestion | QuoteQuestion
-                     | HangedManQuestion | ImagesQuestion;
+                     | HangedManQuestion | ImagesQuestion | FindTheWordQuestion;
 
 export interface QuestionSet {
     questions: Question[];
