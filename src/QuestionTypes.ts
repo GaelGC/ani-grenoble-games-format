@@ -44,6 +44,7 @@ export type Question = BlindTestQuestion | TextQuestion | QuoteQuestion
 
 export interface QuestionSet {
     questions: Question[];
+    choice?: 'random' | 'ordered';
 };
 
 const schema = JSON.parse(fs.readFileSync(`${__dirname}/question_schema.json`).toString())
