@@ -1,6 +1,7 @@
 import Ajv from 'ajv'
 import { Result, Ok, Err } from 'ts-results'
 import fs = require('fs');
+import { GameConfiguration } from './Configuration'
 
 export interface QuestionBase<TypeName> {
     type: TypeName;
@@ -44,20 +45,21 @@ export type Question = BlindTestQuestion | TextQuestion | QuoteQuestion
 
 export interface QuestionSet {
     questions: Question[];
-    choice?: 'random' | 'ordered';
+    /** @default {} */
+    configuration: GameConfiguration;
 };
 
 const schema = JSON.parse(fs.readFileSync(`${__dirname}/question_schema.json`).toString())
 
 export function parseQuestions (json: string): Result<QuestionSet, Error> {
-    const ajv = new Ajv()
+    const ajv = new Ajv({ useDefaults: true })
     let val: unknown
     try {
         val = JSON.parse(json)
         if (ajv.validate(schema, val)) {
             return Ok(val as QuestionSet)
         } else {
-            return Err(new Error(ajv.errors!.join('\n')))
+            return Err(new Error(ajv.errorsText(ajv.errors)))
         }
     } catch (e) {
         return Err(e)
