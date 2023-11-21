@@ -7,7 +7,6 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false,
-    "suppressImplicitAnyIndexErrors": true,
     "strict": true,
     "outDir": "../tests_build/"
   }

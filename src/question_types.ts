@@ -1,19 +1,17 @@
-import Ajv from 'ajv'
-import { Result, Ok, Err } from 'ts-results'
-import fs = require('fs');
-import { GameConfiguration } from './Configuration'
+import { GameConfiguration } from './configuration'
+import { parse, parseLocalFileLambda } from './helpers'
 
 export interface QuestionBase<TypeName> {
     type: TypeName;
     name: string;
     points: number;
-    tags?: string[];
+    tags: string[];
 };
 
 export interface ClearAnswerQuestion {
     answer: string;
     hints: string[];
-}
+};
 
 export interface BlindTestQuestion extends QuestionBase<'BlindTestQuestion'>, ClearAnswerQuestion {
     path: string;
@@ -49,19 +47,5 @@ export interface QuestionSet {
     configuration: GameConfiguration;
 };
 
-const schema = JSON.parse(fs.readFileSync(`${__dirname}/question_schema.json`).toString())
-
-export function parseQuestions (json: string): Result<QuestionSet, Error> {
-    const ajv = new Ajv({ useDefaults: true })
-    let val: unknown
-    try {
-        val = JSON.parse(json)
-        if (ajv.validate(schema, val)) {
-            return Ok(val as QuestionSet)
-        } else {
-            return Err(new Error(ajv.errorsText(ajv.errors)))
-        }
-    } catch (e) {
-        return Err(e)
-    }
-}
+const schema = parseLocalFileLambda('question_schema.json')
+export const parseQuestions = (json: string) => parse<QuestionSet>(json, schema)
