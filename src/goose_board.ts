@@ -6,8 +6,19 @@ export type Coordinates = {
     y: number;
 }
 
+export type MoveEvent = {
+    nbPos: number;
+    text: string;
+    movetype: 'relative' | 'absolute';
+    type: 'move';
+}
+
+export type Event = MoveEvent;
+
 export type SlotBase = {
     pos: Coordinates;
+    onWin?: Event;
+    onLose?: Event;
 }
 
 export type TagSelector = SlotBase & {
