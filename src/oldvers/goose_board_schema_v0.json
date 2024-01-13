@@ -1,0 +1,114 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "Slot": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/TagSelector"
+                },
+                {
+                    "$ref": "#/definitions/TypeSelector"
+                }
+            ]
+        },
+        "TagSelector": {
+            "properties": {
+                "coordinates": {
+                    "properties": {
+                        "x": {
+                            "type": "number"
+                        },
+                        "y": {
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "x",
+                        "y"
+                    ],
+                    "type": "object"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                },
+                "type": {
+                    "const": "TagSelector",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "coordinates",
+                "tags",
+                "type"
+            ],
+            "type": "object"
+        },
+        "TypeSelector": {
+            "properties": {
+                "coordinates": {
+                    "properties": {
+                        "x": {
+                            "type": "number"
+                        },
+                        "y": {
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "x",
+                        "y"
+                    ],
+                    "type": "object"
+                },
+                "type": {
+                    "const": "TypeSelector",
+                    "type": "string"
+                },
+                "types": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": [
+                "coordinates",
+                "type",
+                "types"
+            ],
+            "type": "object"
+        }
+    },
+    "properties": {
+        "slots": {
+            "items": {
+                "$ref": "#/definitions/Slot"
+            },
+            "type": "array"
+        },
+        "winCoordinates": {
+            "properties": {
+                "x": {
+                    "type": "number"
+                },
+                "y": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "x",
+                "y"
+            ],
+            "type": "object"
+        }
+    },
+    "required": [
+        "slots",
+        "winCoordinates"
+    ],
+    "type": "object"
+}
+
