@@ -16,8 +16,8 @@ describe('Valid goose boards', () => {
 
         const v0v1Board: v1.GooseBoard = {
             slots: [
-                { type: 'TagSelector', tags: ['a'], pos: { x: 4, y: 5 } },
-                { type: 'TypeSelector', types: ['b'], pos: { x: 40, y: 50 } }
+                { type: 'GameSlot', selector: 'TagSelector', tags: ['a'], pos: { x: 4, y: 5 } },
+                { type: 'GameSlot', selector: 'TypeSelector', types: ['b'], pos: { x: 40, y: 50 } }
             ],
             winPos: { x: 9, y: 9 },
             version: 1
@@ -32,8 +32,9 @@ describe('Valid goose boards', () => {
     it('v1', () => {
         const v1Board: v1.GooseBoard = {
             slots: [
-                { type: 'TagSelector', tags: ['a'], pos: { x: 4, y: 5 }, onLose: { type: 'move', movetype: 'absolute', nbPos: 4, text: 'fail' } },
-                { type: 'TypeSelector', types: ['b'], pos: { x: 40, y: 50 }, onWin: { type: 'move', movetype: 'relative', nbPos: 2, text: 'yay' } }
+                { type: 'GameSlot', selector: 'TagSelector', tags: ['a'], pos: { x: 4, y: 5 }, onLose: { type: 'move', movetype: 'absolute', nbPos: 4, text: 'fail' } },
+                { type: 'GameSlot', selector: 'TypeSelector', types: ['b'], pos: { x: 40, y: 50 }, onWin: { type: 'move', movetype: 'relative', nbPos: 2, text: 'yay' } },
+                { type: 'EventSlot', pos: { x: 5, y: 7 }, event: { type: 'move', nbPos: -1, movetype: 'absolute', text: 'evt' } }
             ],
             winPos: { x: 9, y: 9 },
             version: 1

@@ -17,21 +17,30 @@ export type Event = MoveEvent;
 
 export type SlotBase = {
     pos: Coordinates;
+}
+
+export type GameSlot = SlotBase & {
+    type: 'GameSlot';
     onWin?: Event;
     onLose?: Event;
 }
 
-export type TagSelector = SlotBase & {
-    type: 'TagSelector';
+export type EventSlot = SlotBase & {
+    type: 'EventSlot';
+    event: Event;
+}
+
+export type TagSelectorSlot = GameSlot & {
+    selector: 'TagSelector';
     tags: string[]
 };
 
-export type TypeSelector = SlotBase & {
-    type: 'TypeSelector';
+export type TypeSelectorSlot = GameSlot & {
+    selector: 'TypeSelector';
     types: string[]
 }
 
-export type Slot = TagSelector | TypeSelector;
+export type Slot = TagSelectorSlot | TypeSelectorSlot | EventSlot;
 
 const curVer = 1
 export type GooseBoard = {
@@ -53,10 +62,10 @@ function v0Tov1 (val: v0.GooseBoard): GooseBoard {
         const common = { pos: old.coordinates }
         switch (old.type) {
         case 'TagSelector': {
-            return { ...common, type: old.type, tags: old.tags }
+            return { ...common, type: 'GameSlot', selector: old.type, tags: old.tags }
         }
         case 'TypeSelector': {
-            return { ...common, type: old.type, types: old.types }
+            return { ...common, type: 'GameSlot', selector: old.type, types: old.types }
         }
         }
     }
