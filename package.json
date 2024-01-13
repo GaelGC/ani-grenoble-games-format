@@ -3,7 +3,7 @@
   "version": "0.10.0",
   "description": "Data structures, parsers and serializers for the supported games.",
   "scripts": {
-    "generate_question_schema": "typescript-json-schema --required src/question_types.ts QuestionSet -o dist/question_schema.json",
+    "generate_question_schema": "typescript-json-schema --required src/question_types.ts PartialQuestionSet -o dist/question_schema.json",
     "generate_player_schema": "typescript-json-schema --required src/game_state.ts Player -o dist/player_schema.json",
     "generate_game_state_schema": "typescript-json-schema --required src/game_state.ts GameState -o dist/game_state_schema.json",
     "generate_question_winners_schema": "typescript-json-schema --required src/game_state.ts QuestionWinners -o dist/question_winners_schema.json",

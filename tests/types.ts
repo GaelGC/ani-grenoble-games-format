@@ -8,7 +8,7 @@ function expectFailure (s: string) {
     expect(result.err).to.be.true
 }
 
-function valid (questions: Question[]) {
+function validQuestions (questions: Question[]) {
     const questionSet: QuestionSet = {
         questions,
         configuration: {
@@ -69,7 +69,7 @@ describe('Valid question sets', () => {
         answer: 'beef',
         tags: []
     }
-    it('blind test question', () => valid([question1]))
-    it('quizz test question', () => valid([question2]))
-    it('several test questions', () => valid([question1, question2]))
+    it('blind test question', () => validQuestions([question1]))
+    it('quizz test question', () => validQuestions([question2]))
+    it('several test questions', () => validQuestions([question1, question2]))
 })

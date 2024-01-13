@@ -1,51 +1,97 @@
-import { GameConfiguration } from './configuration'
+import { GameConfiguration, setGameConfigurationDefaults } from './configuration'
 import { parse, parseLocalFileLambda } from './helpers'
 
-export interface QuestionBase<TypeName> {
-    type: TypeName;
-    name: string;
-    points: number;
-    tags: string[];
+type PartialQuestionBase = {
+    name?: string;
+    points?: number;
+    tags?: string[];
 };
 
-export interface ClearAnswerQuestion {
+export type QuestionBase = Required<PartialQuestionBase>
+
+type PartialClearAnswerQuestion = {
     answer: string;
-    hints: string[];
-};
+    hints?: string[];
+} & PartialQuestionBase;
 
-export interface BlindTestQuestion extends QuestionBase<'BlindTestQuestion'>, ClearAnswerQuestion {
+export type ClearAnswerQuestion = Required<PartialClearAnswerQuestion> & QuestionBase;
+
+type PartialBlindTestQuestion = PartialClearAnswerQuestion & {
+    type: 'BlindTestQuestion';
     path: string;
     answerImage: string;
 };
 
-export interface QuoteQuestion extends QuestionBase<'QuoteQuestion'>, ClearAnswerQuestion {
+type PartialQuoteQuestion = PartialClearAnswerQuestion & {
+    type: 'QuoteQuestion';
     audio?: string;
     text: string;
 };
 
-export interface TextQuestion extends QuestionBase<'TextQuestion'>, ClearAnswerQuestion {
+type PartialTextQuestion = PartialClearAnswerQuestion & {
+    type: 'TextQuestion';
     question: string;
 };
 
-export interface HangedManQuestion extends QuestionBase<'HangedManQuestion'>, ClearAnswerQuestion {
+type PartialHangedManQuestion = PartialClearAnswerQuestion & {
+    type: 'HangedManQuestion';
 };
 
-export interface FindTheWordQuestion extends QuestionBase<'FindTheWordQuestion'>, ClearAnswerQuestion {
+type PartialFindTheWordQuestion = PartialClearAnswerQuestion & {
+    type: 'FindTheWordQuestion';
     nbTries: number;
 };
 
-export interface ImagesQuestion extends QuestionBase<'ImagesQuestion'>, ClearAnswerQuestion {
+type PartialImagesQuestion = PartialClearAnswerQuestion & {
+    type: 'ImagesQuestion';
     images: string[];
 };
 
-export type Question = BlindTestQuestion | TextQuestion | QuoteQuestion
-                     | HangedManQuestion | ImagesQuestion | FindTheWordQuestion;
+type PartialQuestion = PartialBlindTestQuestion | PartialTextQuestion
+                    | PartialQuoteQuestion | PartialHangedManQuestion
+                    | PartialImagesQuestion | PartialFindTheWordQuestion;
 
-export interface QuestionSet {
+export type BlindTestQuestion = ClearAnswerQuestion & PartialBlindTestQuestion;
+export type QuoteQuestion = ClearAnswerQuestion & PartialQuoteQuestion;
+export type TextQuestion = ClearAnswerQuestion & PartialTextQuestion;
+export type HangedManQuestion = ClearAnswerQuestion & PartialHangedManQuestion;
+export type FindTheWordQuestion = ClearAnswerQuestion & PartialFindTheWordQuestion;
+export type ImagesQuestion = ClearAnswerQuestion & PartialImagesQuestion;
+
+export type Question = BlindTestQuestion | TextQuestion | QuoteQuestion
+                    | HangedManQuestion | ImagesQuestion | FindTheWordQuestion;
+
+function setQuestionDefault (q: PartialQuestion): Question {
+    const def = {
+        hints: [],
+        name: q.type,
+        points: 1,
+        tags: []
+    }
+
+    return {
+        ...def,
+        ...q
+    }
+}
+
+type PartialQuestionSet = {
+    questions: PartialQuestion[];
+    configuration?: GameConfiguration;
+}
+
+export type QuestionSet = {
     questions: Question[];
-    /** @default {} */
     configuration: GameConfiguration;
-};
+} & PartialQuestionSet;
+
+function setQuestionSetDefaults (qs: PartialQuestionSet): QuestionSet {
+    const questions: Question[] = qs.questions.map(q => setQuestionDefault(q))
+    const configuration: GameConfiguration = setGameConfigurationDefaults(qs.configuration ?? {})
+    return {
+        configuration, questions
+    }
+}
 
 const schema = parseLocalFileLambda('question_schema.json')
-export const parseQuestions = (json: string) => parse<QuestionSet>(json, schema)
+export const parseQuestions = (json: string) => parse<PartialQuestionSet>(json, schema).map(x => setQuestionSetDefaults(x))
