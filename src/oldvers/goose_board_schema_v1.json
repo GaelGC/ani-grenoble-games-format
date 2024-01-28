@@ -1,0 +1,348 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "EventSlot": {
+            "allOf": [
+                {
+                    "properties": {
+                        "pos": {
+                            "properties": {
+                                "x": {
+                                    "type": "number"
+                                },
+                                "y": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "x",
+                                "y"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "pos"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "event": {
+                            "properties": {
+                                "movetype": {
+                                    "enum": [
+                                        "absolute",
+                                        "relative"
+                                    ],
+                                    "type": "string"
+                                },
+                                "nbPos": {
+                                    "type": "number"
+                                },
+                                "text": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "const": "move",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "movetype",
+                                "nbPos",
+                                "text",
+                                "type"
+                            ],
+                            "type": "object"
+                        },
+                        "type": {
+                            "const": "EventSlot",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "event",
+                        "type"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        "Slot": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/EventSlot"
+                },
+                {
+                    "$ref": "#/definitions/TagSelectorSlot"
+                },
+                {
+                    "$ref": "#/definitions/TypeSelectorSlot"
+                }
+            ]
+        },
+        "TagSelectorSlot": {
+            "allOf": [
+                {
+                    "properties": {
+                        "pos": {
+                            "properties": {
+                                "x": {
+                                    "type": "number"
+                                },
+                                "y": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "x",
+                                "y"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "pos"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "onLose": {
+                            "properties": {
+                                "movetype": {
+                                    "enum": [
+                                        "absolute",
+                                        "relative"
+                                    ],
+                                    "type": "string"
+                                },
+                                "nbPos": {
+                                    "type": "number"
+                                },
+                                "text": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "const": "move",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "movetype",
+                                "nbPos",
+                                "text",
+                                "type"
+                            ],
+                            "type": "object"
+                        },
+                        "onWin": {
+                            "properties": {
+                                "movetype": {
+                                    "enum": [
+                                        "absolute",
+                                        "relative"
+                                    ],
+                                    "type": "string"
+                                },
+                                "nbPos": {
+                                    "type": "number"
+                                },
+                                "text": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "const": "move",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "movetype",
+                                "nbPos",
+                                "text",
+                                "type"
+                            ],
+                            "type": "object"
+                        },
+                        "type": {
+                            "const": "GameSlot",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "selector": {
+                            "const": "TagSelector",
+                            "type": "string"
+                        },
+                        "tags": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "selector",
+                        "tags"
+                    ],
+                    "type": "object"
+                }
+            ]
+        },
+        "TypeSelectorSlot": {
+            "allOf": [
+                {
+                    "properties": {
+                        "pos": {
+                            "properties": {
+                                "x": {
+                                    "type": "number"
+                                },
+                                "y": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "x",
+                                "y"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "pos"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "onLose": {
+                            "properties": {
+                                "movetype": {
+                                    "enum": [
+                                        "absolute",
+                                        "relative"
+                                    ],
+                                    "type": "string"
+                                },
+                                "nbPos": {
+                                    "type": "number"
+                                },
+                                "text": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "const": "move",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "movetype",
+                                "nbPos",
+                                "text",
+                                "type"
+                            ],
+                            "type": "object"
+                        },
+                        "onWin": {
+                            "properties": {
+                                "movetype": {
+                                    "enum": [
+                                        "absolute",
+                                        "relative"
+                                    ],
+                                    "type": "string"
+                                },
+                                "nbPos": {
+                                    "type": "number"
+                                },
+                                "text": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "const": "move",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "movetype",
+                                "nbPos",
+                                "text",
+                                "type"
+                            ],
+                            "type": "object"
+                        },
+                        "type": {
+                            "const": "GameSlot",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type"
+                    ],
+                    "type": "object"
+                },
+                {
+                    "properties": {
+                        "selector": {
+                            "const": "TypeSelector",
+                            "type": "string"
+                        },
+                        "types": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "selector",
+                        "types"
+                    ],
+                    "type": "object"
+                }
+            ]
+        }
+    },
+    "properties": {
+        "slots": {
+            "items": {
+                "$ref": "#/definitions/Slot"
+            },
+            "type": "array"
+        },
+        "version": {
+            "const": 1,
+            "type": "number"
+        },
+        "winPos": {
+            "properties": {
+                "x": {
+                    "type": "number"
+                },
+                "y": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "x",
+                "y"
+            ],
+            "type": "object"
+        }
+    },
+    "required": [
+        "slots",
+        "version",
+        "winPos"
+    ],
+    "type": "object"
+}
+
