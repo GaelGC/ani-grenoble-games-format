@@ -50,6 +50,8 @@ export type GooseBoard = {
     winPos: Coordinates;
     cellTileSet: string;
     playersTileSet: string;
+    eventCardImage: string;
+    eventTextColor: string;
     version: typeof curVer;
 };
 
@@ -96,6 +98,8 @@ function v1Tov2 (val: v1.GooseBoard): GooseBoard {
         slots: val.slots.map(slotV1toV2),
         cellTileSet: 'ui:///./img/goose_default_tileset.png',
         playersTileSet: 'ui:///./img/goose_default_players_tileset.png',
+        eventCardImage: 'ui:///./img/event.png',
+        eventTextColor: '#000000',
         version: 2
     }
 
