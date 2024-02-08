@@ -51,6 +51,8 @@ export type GooseBoard = {
     cellTileSet: string;
     playersTileSet: string;
     eventCardImage: string;
+    pawnMoveSound: string;
+    eventRevealSound: string;
     eventTextColor: string;
     version: typeof curVer;
 };
@@ -100,6 +102,8 @@ function v1Tov2 (val: v1.GooseBoard): GooseBoard {
         playersTileSet: 'ui:///./img/goose_default_players_tileset.png',
         eventCardImage: 'ui:///./img/event.png',
         eventTextColor: '#000000',
+        pawnMoveSound: 'ui:///./audio/pawnmove.mp3',
+        eventRevealSound: 'ui:///./audio/eventreveal.mp3',
         version: 2
     }
 
