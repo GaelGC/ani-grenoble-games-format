@@ -18,7 +18,12 @@ export type SwapEvent = {
     type: 'swap';
 }
 
-export type Event = (MoveEvent | SwapEvent) & {
+export type SkipTurnsEvent = {
+    type: 'skip';
+    nbTurns: number;
+}
+
+export type Event = (MoveEvent | SwapEvent | SkipTurnsEvent) & {
     text: string;
 }
 
