@@ -9,12 +9,18 @@ export type Coordinates = {
 
 export type MoveEvent = {
     nbPos: number;
-    text: string;
     movetype: 'relative' | 'absolute';
     type: 'move';
 }
 
-export type Event = MoveEvent;
+export type SwapEvent = {
+    swapType: 'best' | 'worst' | 'random';
+    type: 'swap';
+}
+
+export type Event = (MoveEvent | SwapEvent) & {
+    text: string;
+}
 
 export type SlotBase = {
     pos: Coordinates;
