@@ -20,6 +20,7 @@ type PartialBlindTestQuestion = PartialClearAnswerQuestion & {
     type: 'BlindTestQuestion';
     path: string;
     answerImage: string;
+    tag?: string;
 };
 
 type PartialQuoteQuestion = PartialClearAnswerQuestion & {
